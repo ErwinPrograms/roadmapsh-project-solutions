@@ -1,0 +1,35 @@
+* {
+    box-sizing: border-box;
+
+    font-family: sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    max-width: 800px;
+    width: 100%;
+}
+
+details {
+    margin: .25rem 0;
+}
+
+details>summary {
+    background-color: black;
+    color: white;
+    border-radius: .75rem;
+
+    padding: 1rem;
+}
+
+details>div.accordion-body {
+    border: 2px solid black;
+    border-radius: .75rem;
+
+    padding: .25rem;
+    margin: .25rem 0 0;
+}
