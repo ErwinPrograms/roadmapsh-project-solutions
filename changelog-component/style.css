@@ -1,0 +1,32 @@
+* {
+    box-sizing: border-box;
+
+    font-family: sans-serif;
+}
+
+header p,
+.change-node p {
+    color: grey;
+}
+
+.change-node h2 {
+    font-size: 1em;
+    font-weight: 400;
+}
+
+.visit-complete-changelog {
+    background-color: black;
+    color: white;
+    border: none;
+
+    border-radius: .5em;
+    padding: .75em 2em;
+}
+
+.visit-complete-changelog:hover {
+    background-color: #555;
+}
+
+.visit-complete-changelog:active {
+    background-color: #333;
+}
