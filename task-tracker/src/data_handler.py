@@ -68,5 +68,32 @@ def list_tasks() -> str:
 
     return result
 
+def mark_done(*task_ids: tuple[int]) -> int:
+    '''Marks all tasks corresponding to argument ids as done. If any IDs don't exist, no updates are done. If successful, returns 0'''
+    existing_ids = list(id_tasks.keys())
+
+    # Not updating any when any IDs are missing is intended
+    for id in task_ids:
+        if id not in existing_ids:
+            return id
+    
+    for id in task_ids:
+        id_tasks[id].mark_done()
+
+    return 0
+
+def mark_in_progress(*task_ids: tuple[int]) -> int:
+    '''Marks all tasks corresponding to argument ids as done. If any IDs don't exist, no updates are done. If successful, returns 0'''
+    existing_ids = list(id_tasks.keys())
+
+    # Not updating any when any IDs are missing is intended
+    for id in task_ids:
+        if id not in existing_ids:
+            return id
+    
+    for id in task_ids:
+        id_tasks[id].mark_in_progress()
+
+    return 0
 
 id_tasks: dict[int, Task] = {}

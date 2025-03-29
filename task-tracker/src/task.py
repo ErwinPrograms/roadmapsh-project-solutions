@@ -25,3 +25,11 @@ class Task:
 
     def __str__(self) -> str:
         return f"ID: {self.id}, Description: {self.description}, status: {self.status}, Created At: {self.created_at}, Last Update: {self.updated_at}"
+    
+    def mark_done(self) -> None:
+        self.status = TaskStatus.DONE
+        self.updated_at = datetime.now()
+    
+    def mark_in_progress(self) -> None:
+        self.status = TaskStatus.IN_PROGRESS
+        self.updated_at = datetime.now()

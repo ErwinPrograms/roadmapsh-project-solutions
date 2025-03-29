@@ -21,6 +21,18 @@ add_parser.add_argument(
 
 list_parser = subparsers.add_parser("list", help="List tasks")
 
+mark_done_parser = subparsers.add_parser("mark-done", help="Mark a task as done")
+mark_done_parser.add_argument(
+    "ids", help="ID(s) of tasks to mark as done", type=int, nargs='+'
+)
+
+mark_in_progress_parser = subparsers.add_parser(
+    "mark-in-progress", help="Mark a task as in progress"
+)
+mark_in_progress_parser.add_argument(
+    "ids", help="ID(s) of tasks to mark as in-progress", type=int, nargs='+'
+)
+
 args = parser.parse_args()
 
 # Begin handling arguments
@@ -35,5 +47,23 @@ if args.subcommands == "add":
 
 if args.subcommands == "list":
     print(data_handler.list_tasks())
+
+if args.subcommands == "mark-done":
+    update_status = data_handler.mark_done(*args.ids)
+
+    # 0 indicates successful update
+    if  update_status == 0:
+        print("Update successful")
+    else:
+        print(f"Error with task id: {update_status}")
+
+if args.subcommands == "mark-in-progress":
+    update_status = data_handler.mark_in_progress(*args.ids)
+
+    # 0 indicates successful update
+    if  update_status == 0:
+        print("Update successful")
+    else:
+        print(f"Error with task id: {update_status}")
 
 data_handler.close()
