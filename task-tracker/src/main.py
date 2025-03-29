@@ -23,5 +23,17 @@ list_parser = subparsers.add_parser("list", help="List tasks")
 
 args = parser.parse_args()
 
+# Begin handling arguments
+data_handler.open()
+
 if args.subcommands == "add":
-    data_handler.add_tasks(args.descriptions)
+    if data_handler.add_tasks(*args.descriptions):
+        if len(args.descriptions) > 1:
+            print("Tasks added successfully.")
+        else:
+            print("Task added successfully.")
+
+if args.subcommands == "list":
+    print(data_handler.list_tasks())
+
+data_handler.close()
