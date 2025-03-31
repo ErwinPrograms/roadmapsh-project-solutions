@@ -96,4 +96,20 @@ def mark_in_progress(*task_ids: tuple[int]) -> int:
 
     return 0
 
+def update(id: int, new_description: str):
+    if id not in id_tasks.keys():
+        return 1
+
+    id_tasks[id].update_description(new_description)
+
+    return 0
+
+def delete(id: int):
+    if id not in id_tasks.keys():
+        return 1
+
+    id_tasks.pop(id)
+
+    return 0
+
 id_tasks: dict[int, Task] = {}

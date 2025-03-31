@@ -33,6 +33,14 @@ mark_in_progress_parser.add_argument(
     "ids", help="ID(s) of tasks to mark as in-progress", type=int, nargs='+'
 )
 
+update_parser = subparsers.add_parser("update", help="Update the description of a task")
+update_parser.add_argument("id", type=int, help="ID of the task to be updated") 
+update_parser.add_argument("description", help="New description for task")
+
+delete_parser = subparsers.add_parser("delete", help="Delete task")
+delete_parser.add_argument("id", type=int, help="ID of task to delete")
+
+
 args = parser.parse_args()
 
 # Begin handling arguments
@@ -65,5 +73,21 @@ if args.subcommands == "mark-in-progress":
         print("Update successful")
     else:
         print(f"Error with task id: {update_status}")
+
+if args.subcommands == "update":
+    update_status = data_handler.update(args.id, args.description)
+
+    if update_status == 0:
+        print("Update successful")
+    else:
+        print("Error updating task")
+
+if args.subcommands == "delete":
+    update_status = data_handler.delete(args.id)
+
+    if update_status == 0:
+        print("Delete successful")
+    else:
+        print("Error deleting task")
 
 data_handler.close()

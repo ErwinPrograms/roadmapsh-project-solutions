@@ -33,3 +33,7 @@ class Task:
     def mark_in_progress(self) -> None:
         self.status = TaskStatus.IN_PROGRESS
         self.updated_at = datetime.now()
+    
+    def update_description(self, new_description: str) -> None:
+        self.description = new_description
+        self.updated_at = datetime.now()
