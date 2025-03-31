@@ -53,9 +53,20 @@ def add_tasks(*descriptions: tuple[str]) -> None:
     return True
 
 
-def list_tasks() -> str:
+def list_tasks(status_filter=None) -> str:
     tasks: list[Task] = list(id_tasks.values())
     result: str = ""
+
+    if status_filter:
+        string_status: dict[str, TaskStatus] = {
+            "done": TaskStatus.DONE,
+            "in-progress": TaskStatus.IN_PROGRESS,
+            "todo": TaskStatus.TODO,
+        }
+
+        target_status = string_status[status_filter]
+
+        tasks = list(filter(lambda task: task.status == target_status, tasks))
 
     # English grammar is different depending on plurality
     if len(tasks) == 1:
@@ -68,6 +79,7 @@ def list_tasks() -> str:
 
     return result
 
+
 def mark_done(*task_ids: tuple[int]) -> int:
     '''Marks all tasks corresponding to argument ids as done. If any IDs don't exist, no updates are done. If successful, returns 0'''
     existing_ids = list(id_tasks.keys())
@@ -76,11 +88,12 @@ def mark_done(*task_ids: tuple[int]) -> int:
     for id in task_ids:
         if id not in existing_ids:
             return id
-    
+
     for id in task_ids:
         id_tasks[id].mark_done()
 
     return 0
+
 
 def mark_in_progress(*task_ids: tuple[int]) -> int:
     '''Marks all tasks corresponding to argument ids as done. If any IDs don't exist, no updates are done. If successful, returns 0'''
@@ -90,11 +103,12 @@ def mark_in_progress(*task_ids: tuple[int]) -> int:
     for id in task_ids:
         if id not in existing_ids:
             return id
-    
+
     for id in task_ids:
         id_tasks[id].mark_in_progress()
 
     return 0
+
 
 def update(id: int, new_description: str):
     if id not in id_tasks.keys():
@@ -104,6 +118,7 @@ def update(id: int, new_description: str):
 
     return 0
 
+
 def delete(id: int):
     if id not in id_tasks.keys():
         return 1
@@ -111,5 +126,6 @@ def delete(id: int):
     id_tasks.pop(id)
 
     return 0
+
 
 id_tasks: dict[int, Task] = {}
